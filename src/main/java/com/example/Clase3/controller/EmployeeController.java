@@ -1,7 +1,13 @@
 package com.example.Clase3.controller;
 
+import com.example.Clase3.entity.Department;
 import com.example.Clase3.entity.Employee;
+import com.example.Clase3.entity.Job;
+import com.example.Clase3.repository.DepartmentRepository;
 import com.example.Clase3.repository.EmployeeRepository;
+import com.example.Clase3.repository.JobRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,8 +21,16 @@ import java.util.Optional;
 @RequestMapping("/employees")
 public class EmployeeController {
 
+    private static final Logger log = LoggerFactory.getLogger(EmployeeController.class);
+
     @Autowired
     private EmployeeRepository employeeRepository;
+
+    @Autowired
+    private JobRepository jobRepository;
+
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
     @GetMapping("")
     public String listEmployees(Model model, @RequestParam(value = "texto", required = false) String texto) {
@@ -29,14 +43,29 @@ public class EmployeeController {
         }
 
         model.addAttribute("employeeList", list);
-        return "list"; //  Corrected: list.html is in templates/
+        return "list";
     }
 
     @GetMapping("/new")
     public String newEmployeeForm(Model model) {
-        model.addAttribute("employee", new Employee());
-        return "nuevo"; // Corrected: nuevo.html is in templates/
+        log.info("Entering newEmployeeForm");
+        Employee employee = new Employee();
+        employee.setJob(new Job()); // Initialize Job
+        employee.setDepartment(new Department()); // Initialize Department
+        employee.setManager(new Employee()); // Initialize Manager
+        model.addAttribute("employee", employee);
+        List<Job> jobList = jobRepository.findAll();
+        List<Department> departmentList = departmentRepository.findAll();
+        List<Employee> employeeList = employeeRepository.findAll(); // For manager selection
+        model.addAttribute("jobList", jobList);
+        model.addAttribute("departmentList", departmentList);
+        model.addAttribute("employeeList", employeeList); // Add employeeList to the model
+        log.info("jobList size: {}", jobList.size());
+        log.info("departmentList size: {}", departmentList.size());
+        log.info("employeeList size: {}", employeeList.size());
+        return "nuevo";
     }
+
 
     @PostMapping("/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee, RedirectAttributes redirectAttributes) {
@@ -50,7 +79,10 @@ public class EmployeeController {
         Optional<Employee> employee = employeeRepository.findById(id);
         if (employee.isPresent()) {
             model.addAttribute("employee", employee.get());
-            return "nuevo"; //   Corrected:  Using nuevo.html for edit too
+            model.addAttribute("jobList", jobRepository.findAll());
+            model.addAttribute("departmentList", departmentRepository.findAll());
+            model.addAttribute("employeeList", employeeRepository.findAll()); // For manager selection
+            return "nuevo";
         } else {
             return "redirect:/employees";
         }

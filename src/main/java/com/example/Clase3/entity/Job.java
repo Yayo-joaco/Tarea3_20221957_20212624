@@ -9,29 +9,51 @@ public class Job {
 
     @Id
     @Column(name = "job_id")
-    private String id;
+    private String jobId;
 
+    @Column(name = "job_title")
     private String jobTitle;
+
+    @Column(name = "min_salary")
     private Double minSalary;
+
+    @Column(name = "max_salary")
     private Double maxSalary;
 
-    @OneToMany(mappedBy = "job")
-    private List<Employee> employees;
+    // Constructor vacío
+    public Job() {
+    }
 
-    public Job() {}
+    // Getters y Setters
+    public String getJobId() {
+        return jobId;
+    }
 
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
+    public void setJobId(String jobId) {
+        this.jobId = jobId;
+    }
 
-    public String getJobTitle() { return jobTitle; }
-    public void setJobTitle(String jobTitle) { this.jobTitle = jobTitle; }
+    public String getJobTitle() {
+        return jobTitle;
+    }
 
-    public Double getMinSalary() { return minSalary; }
-    public void setMinSalary(Double minSalary) { this.minSalary = minSalary; }
+    public void setJobTitle(String jobTitle) {
+        this.jobTitle = jobTitle;
+    }
 
-    public Double getMaxSalary() { return maxSalary; }
-    public void setMaxSalary(Double maxSalary) { this.maxSalary = maxSalary; }
+    public Double getMinSalary() {
+        return minSalary;
+    }
 
-    public List<Employee> getEmployees() { return employees; }
-    public void setEmployees(List<Employee> employees) { this.employees = employees; }
+    public void setMinSalary(Double minSalary) {
+        this.minSalary = minSalary;
+    }
+
+    public Double getMaxSalary() {
+        return maxSalary;
+    }
+
+    public void setMaxSalary(Double maxSalary) {
+        this.maxSalary = maxSalary;
+    }
 }

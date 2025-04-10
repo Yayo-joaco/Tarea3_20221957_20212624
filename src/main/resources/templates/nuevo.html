@@ -8,45 +8,58 @@
 </head>
 <body class="container mt-5">
 
+
 <div th:replace="~{index :: navbar}"></div>
-<h2 class="mt-4" th:text="${employee.employeeId == null ? 'Nuevo Empleado' : 'Editar Empleado'}"></h2>
-<form th:action="${employee.employeeId == null ? @{/employees/save} : @{/employees/update}}" method="post" class="row g-3" th:object="${employee}">
+<h2 class="mt-4">Agregar nuevo empleado</h2>
+<form th:action="@{/employees/save}" th:object="${employee}" method="post">
   <input type="hidden" th:field="*{employeeId}">
   <div class="col-md-6">
     <label for="firstName" class="form-label">Nombre</label>
-    <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+    <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
   </div>
   <div class="col-md-6">
     <label for="lastName" class="form-label">Apellido</label>
-    <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+    <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
   </div>
   <div class="col-md-6">
     <label for="email" class="form-label">Correo Electrónico</label>
-    <input type="email" class="form-control" id="email" th:field="*{email}">
+    <input type="email" class="form-control" id="email" th:field="*{email}" required>
   </div>
   <div class="col-md-6">
     <label for="salary" class="form-label">Sueldo</label>
-    <input type="number" class="form-control" id="salary" th:field="*{salary}">
+    <input type="number" class="form-control" id="salary" th:field="*{salary}" required>
   </div>
   <div class="col-md-6">
     <label for="job" class="form-label">Puesto</label>
-    <select id="job" class="form-select" th:field="*{job.jobId}">
-      <option th:each="job : ${jobList}" th:value="${job.jobId}" th:text="${job.jobTitle}">
-        Administration
-      </option>
+    <select id="job" class="form-select" th:field="*{job.jobId}" required>
+      <option value="">Seleccionar Puesto</option>
+      <option th:each="job : ${jobList}" th:value="${job.jobId}" th:text="${job.jobTitle}"></option>
     </select>
   </div>
+
   <div class="col-md-6">
     <label for="department" class="form-label">Departamento</label>
-    <select id="department" class="form-select" th:field="*{department.departmentId}">
+    <select id="department" class="form-select" th:field="*{department.departmentId}" required>
+      <option value="">Seleccionar Departamento</option>
       <option th:each="dept : ${departmentList}" th:value="${dept.departmentId}" th:text="${dept.departmentName}">
         Administration
       </option>
     </select>
   </div>
+
+  <div class="col-md-6">
+    <label for="manager" class="form-label">Jefe</label>
+    <select id="manager" class="form-select" th:field="*{manager.employeeId}">
+      <option value="">Seleccionar Jefe</option>
+      <option th:each="manager : ${employeeList}" th:value="${manager.employeeId}" th:text="${manager.firstName + ' ' + manager.lastName}">
+        Steven King
+      </option>
+    </select>
+  </div>
+
   <div class="col-12">
     <a th:href="@{/employees}" class="btn btn-danger">Cancelar</a>
-    <button type="submit" class="btn btn-primary" th:text="${employee.employeeId == null ? 'Registrar' : 'Actualizar'}">Registrar</button>
+    <button type="submit" class="btn btn-primary">Registrar</button>
   </div>
 </form>
 
