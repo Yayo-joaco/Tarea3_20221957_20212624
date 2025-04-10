@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <title>Nuevo Empleado</title>
+</head>
+<body class="container mt-5">
+
+<div th:replace="~{index :: navbar}"></div>
+<h2 class="mt-4" th:text="${employee.employeeId == null ? 'Nuevo Empleado' : 'Editar Empleado'}"></h2>
+<form th:action="${employee.employeeId == null ? @{/employees/save} : @{/employees/update}}" method="post" class="row g-3" th:object="${employee}">
+  <input type="hidden" th:field="*{employeeId}">
+  <div class="col-md-6">
+    <label for="firstName" class="form-label">Nombre</label>
+    <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
+  </div>
+  <div class="col-md-6">
+    <label for="lastName" class="form-label">Apellido</label>
+    <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
+  </div>
+  <div class="col-md-6">
+    <label for="email" class="form-label">Correo Electrónico</label>
+    <input type="email" class="form-control" id="email" th:field="*{email}">
+  </div>
+  <div class="col-md-6">
+    <label for="salary" class="form-label">Sueldo</label>
+    <input type="number" class="form-control" id="salary" th:field="*{salary}">
+  </div>
+  <div class="col-md-6">
+    <label for="job" class="form-label">Puesto</label>
+    <select id="job" class="form-select" th:field="*{job.jobId}">
+      <option th:each="job : ${jobList}" th:value="${job.jobId}" th:text="${job.jobTitle}">
+        Administration
+      </option>
+    </select>
+  </div>
+  <div class="col-md-6">
+    <label for="department" class="form-label">Departamento</label>
+    <select id="department" class="form-select" th:field="*{department.departmentId}">
+      <option th:each="dept : ${departmentList}" th:value="${dept.departmentId}" th:text="${dept.departmentName}">
+        Administration
+      </option>
+    </select>
+  </div>
+  <div class="col-12">
+    <a th:href="@{/employees}" class="btn btn-danger">Cancelar</a>
+    <button type="submit" class="btn btn-primary" th:text="${employee.employeeId == null ? 'Registrar' : 'Actualizar'}">Registrar</button>
+  </div>
+</form>
+
+</body>
+</html>
