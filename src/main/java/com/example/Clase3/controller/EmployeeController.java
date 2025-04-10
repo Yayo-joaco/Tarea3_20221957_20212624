@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +70,7 @@ public class EmployeeController {
 
     @PostMapping("/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee, RedirectAttributes redirectAttributes) {
+        employee.setHireDate(LocalDate.now());
         employeeRepository.save(employee);
         redirectAttributes.addFlashAttribute("msg", "Empleado creado exitosamente");
         return "redirect:/employees";

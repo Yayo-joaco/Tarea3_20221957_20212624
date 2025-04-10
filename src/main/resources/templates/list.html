@@ -39,9 +39,9 @@
     <td th:text="${employee.employeeId}">1</td>
     <td th:text="${employee.firstName}">Steven</td>
     <td th:text="${employee.lastName}">King</td>
-    <td th:text="${employee.job.jobTitle}">Presidente</td>
-    <td th:text="${employee.department.departmentName}">Executive</td>
-    <td th:text="${employee.department.location.city}">Seattle</td>
+    <td th:text="${employee.job != null ? employee.job.jobTitle : '---'}">Presidente</td>
+    <td th:text="${employee.department != null ? employee.department.departmentName : '---'}">Executive</td>
+    <td th:text="${employee.department != null && employee.department.location != null ? employee.department.location.city : '---'}">Seattle</td>
     <td>
       <a th:href="@{/employees/edit(id=${employee.employeeId})}" class="btn btn-sm btn-primary">Editar</a>
       <a th:href="@{/employees/delete(id=${employee.employeeId})}" class="btn btn-sm btn-danger"
