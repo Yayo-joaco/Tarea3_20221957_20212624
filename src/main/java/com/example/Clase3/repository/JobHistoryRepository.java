@@ -5,10 +5,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import com.example.Clase3.entity.JobHistoryId;
 import java.util.List;
 
+
 @Repository
-public interface JobHistoryRepository extends JpaRepository<JobHistory, Integer> { // Or appropriate ID type
+public interface JobHistoryRepository extends JpaRepository<JobHistory, JobHistoryId> {
 
     @Query("SELECT jh FROM JobHistory jh " +
             "WHERE LOWER(jh.employee.firstName) LIKE LOWER(concat('%', :texto, '%')) OR " +

@@ -5,18 +5,23 @@ import java.time.LocalDate;
 
 @Entity
 @Table(name = "job_history")
+@IdClass(JobHistoryId.class)
 public class JobHistory {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    @Column(name = "employee_id")
+    private Integer employeeId;
+
+    @Id
+    @Column(name = "start_date")
+    private LocalDate startDate;
+
+    @Column(name = "end_date")
+    private LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "employee_id")
+    @JoinColumn(name = "employee_id", insertable = false, updatable = false)
     private Employee employee;
-
-    private LocalDate startDate;
-    private LocalDate endDate;
 
     @ManyToOne
     @JoinColumn(name = "job_id")
@@ -28,8 +33,8 @@ public class JobHistory {
 
     public JobHistory() {}
 
-    public Integer getId() { return id; }
-    public void setId(Integer id) { this.id = id; }
+    public Integer getEmployeeId() { return employeeId; }
+    public void setEmployeeId(Integer employeeId) { this.employeeId = employeeId; }
 
     public Employee getEmployee() { return employee; }
     public void setEmployee(Employee employee) { this.employee = employee; }

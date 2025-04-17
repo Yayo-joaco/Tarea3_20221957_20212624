@@ -13,11 +13,11 @@
 </div>
 <form th:action="@{/history}" method="get" class="mb-3 row">
   <div class="col-md-4">
-    <input type="text" class="form-control" placeholder="Texto a buscar">
+    <input type="text" class="form-control" name="texto" th:value="${texto}" placeholder="Buscar por nombre, apellido, puesto o departamento">
   </div>
   <div class="col-auto">
-    <button class="btn btn-outline-primary">Buscar</button>
-    <button class="btn btn-outline-danger">Limpiar</button>
+    <button type="submit" class="btn btn-outline-primary">Buscar</button>
+    <a th:href="@{/history}" class="btn btn-outline-danger">Limpiar</a>
   </div>
 </form>
 <table class="table table-bordered">
