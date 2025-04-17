@@ -18,4 +18,8 @@ public interface JobHistoryRepository extends JpaRepository<JobHistory, JobHisto
             "LOWER(jh.job.jobTitle) LIKE LOWER(concat('%', :texto, '%')) OR " +
             "LOWER(jh.department.departmentName) LIKE LOWER(concat('%', :texto, '%'))")
     List<JobHistory> searchHistory(String texto);
+
+    // Consulta para el reporte de empleados con salario > 15000
+    @Query("SELECT jh FROM JobHistory jh JOIN jh.employee e WHERE e.salary > 15000")
+    List<JobHistory> findJobHistoryBySalaryGreaterThan15000();
 }

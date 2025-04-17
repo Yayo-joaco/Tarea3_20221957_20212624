@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Reporte de Departamentos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div th:replace="~{index :: navbar}"></div>
+
+<div class="container mt-4">
+    <h2>Reporte de departamento por país y ciudad</h2>
+    <a th:href="@{/}" class="btn btn-primary mb-3">Regresar</a>
+
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>País</th>
+            <th>Ciudad</th>
+            <th>Cantidad</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="depto : ${listaDepartamentos}">
+            <td th:text="${depto.nombrePais}"></td>
+            <td th:text="${depto.nombreCiudad}"></td>
+            <td th:text="${depto.cantidadDepartamentos}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

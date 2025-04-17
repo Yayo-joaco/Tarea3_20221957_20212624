@@ -7,26 +7,34 @@
 </head>
 <body>
 
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">  <div class="container-fluid">
-  <a class="navbar-brand" href="#">Mi Aplicación</a>
-  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/employees}">Empleados</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/history}">Historial</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/search}">Reporte Visual</a>
-      </li>
-    </ul>
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Mi Aplicación</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/employees}">Empleados</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/history}">Historial</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownReportes" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Reportes
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownReportes">
+            <li><a class="dropdown-item" th:href="@{/search/reporte/salario}">Empleados Salario > 15000</a></li>
+            <li><a class="dropdown-item" th:href="@{/search/reporte/departamentos}">Departamentos por País/Ciudad</a></li>
+            <li><a class="dropdown-item" th:href="@{/search/reporte/gerentes}">Gerentes con Experiencia</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
   </div>
-</div>
 </nav>
 
 <div class="container mt-4">
